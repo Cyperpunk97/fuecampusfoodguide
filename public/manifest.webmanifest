@@ -1,0 +1,50 @@
+{
+  "id": "/",
+  "name": "CS Family Star — Campus Food Guide",
+  "short_name": "CS Family",
+  "description": "Discover 53 food spots around Future University in Egypt with brand logos, menus, dish search, reviews, and faculty-based walking directions.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#faf8f5",
+  "theme_color": "#822727",
+  "lang": "en",
+  "categories": ["food", "lifestyle", "education"],
+  "prefer_related_applications": false,
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Discover Food",
+      "short_name": "Discover",
+      "description": "Explore food spots around FUE and Point 90",
+      "url": "/?view=discover",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "My Favorites",
+      "short_name": "Favorites",
+      "description": "Quickly access your saved campus spots",
+      "url": "/?view=favorites",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Campus Memories",
+      "short_name": "Memories",
+      "description": "View and share student campus moments",
+      "url": "/?view=memories",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Top Reviewers",
+      "short_name": "Leaderboard",
+      "description": "See top campus food reviewers and badges",
+      "url": "/?view=leaderboard",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
