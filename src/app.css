@@ -149,7 +149,7 @@ input::placeholder, textarea::placeholder { color: #8c817c; }
 
 /* One tap target per place, not a gallery of boxes. */
 .venue-grid { display: block; }
-.venue-card { position: relative; border-bottom: 1px solid var(--line); }
+.venue-card { position: relative; border-bottom: 1px solid var(--line); transition: border-color .18s ease, background-color .18s ease, box-shadow .18s ease, transform .18s ease; }
 .venue-card-main { display: grid; grid-template-columns: 52px minmax(0,1fr); grid-template-rows: auto auto auto; column-gap: 11px; width: 100%; padding: 12px 41px 2px 0; text-align: start; }
 html[dir="rtl"] .venue-card-main { padding: 12px 0 2px 41px; }
 .venue-card-top { grid-column: 1; grid-row: 1 / 4; }
@@ -199,13 +199,19 @@ html.input-focused .mobile-nav, html.input-focused .compare-tray { display: none
 html.input-focused .main-content { padding-bottom: 16px; }
 
 /* Common interactions and secondary screens. */
-.button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 43px; padding: 9px 14px; border-radius: 8px; font-size: 12px; line-height: 1.3; font-weight: 680; white-space: normal; text-align: center; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 43px; padding: 9px 14px; border-radius: 8px; font-size: 12px; line-height: 1.3; font-weight: 680; white-space: normal; text-align: center; transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease; }
 .button-primary { color: white; background: var(--maroon); }
 .button-primary:active { background: var(--maroon-dark); }
 .button-outline { color: var(--maroon); border: 1px solid var(--line); background: white; }
 .button-outline:active { background: var(--blush); }
 .button-small { min-height: 38px; padding: 7px 10px; font-size: 11px; }
 .button-full { width: 100%; }
+@media (hover: hover) {
+  .venue-card:hover { border-color: #d9c7bd; background: color-mix(in srgb, var(--white) 72%, var(--paper)); box-shadow: 0 8px 20px rgba(80, 47, 32, .07); transform: translateY(-1px); }
+  .button:hover { transform: translateY(-1px); }
+  .button-primary:hover { background: var(--maroon-dark); }
+  .button-outline:hover { border-color: #cf9696; background: var(--blush); }
+}
 .icon-button { display: inline-grid; place-items: center; width: 43px; height: 43px; border-radius: 9px; color: var(--maroon); flex: none; }
 .icon-button:active { background: var(--blush); }
 .text-button { display: inline-flex; align-items: center; gap: 5px; color: var(--maroon); font-size: 11px; line-height: 1.4; font-weight: 660; }
