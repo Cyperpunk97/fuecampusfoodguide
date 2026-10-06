@@ -1,1 +1,18 @@
-.vercel
+# Dependencies and package-manager state
+node_modules/
+.npm/
+
+# Generated web and native outputs
+dist/
+android/
+.vercel/
+
+# Local environment and editor files
+.env
+.env.*
+!.env.example
+.DS_Store
+.vscode/
+
+# Release artifacts belong in GitHub Releases, not source control
+*.zip

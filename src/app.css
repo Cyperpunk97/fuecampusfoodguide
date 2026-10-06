@@ -954,3 +954,26 @@ html[dir="rtl"] .phone-brand strong span { margin-inline-start: 3px; }
   .app-shell .venue-card-wide-logo .venue-card-top .venue-logo, .app-shell .venue-grid.is-list .venue-card-wide-logo .venue-card-top .venue-logo { width: 90px !important; height: 70px !important; }
   .app-shell .venue-title-row h3 { font-size: 14px; }
 }
+/* Privacy and data controls */
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.live-location-control { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 13px 0; padding: 11px; border: 1px solid var(--line); border-radius: 11px; background: var(--warm); }
+.live-location-control > div { display: flex; align-items: flex-start; gap: 8px; min-width: 0; color: var(--maroon); }
+.live-location-control span { display: grid; gap: 2px; }
+.live-location-control strong { color: var(--ink); font-size: 12px; }
+.live-location-control small { color: var(--muted); font-size: 10px; line-height: 1.35; }
+.live-location-control .button { flex: none; }
+.settings-backup-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.settings-backup-actions .button { font-size: 11px; }
+.settings-danger { margin-top: 12px; color: #9a2832; }
+html[data-theme="dark"] .live-location-control { background: #302d33; border-color: var(--line); }
+
+.quick-picks { margin: 13px 0; padding: 13px; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(135deg, var(--warm), var(--paper)); }
+.quick-picks h2 { margin-top: 3px; color: var(--ink); font-size: 15px; }
+.quick-pick-list { display: flex; gap: 7px; overflow-x: auto; padding: 11px 0 2px; scrollbar-width: none; }
+.quick-pick-list::-webkit-scrollbar { display: none; }
+.quick-pick-list button { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 5px; min-height: 34px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 999px; background: var(--white); color: var(--ink); font-size: 11px; font-weight: 700; }
+.quick-pick-list button.active { border-color: var(--maroon); background: var(--maroon); color: #fff; }
+.quick-pick-note { margin-top: 9px; color: var(--muted); font-size: 10px; line-height: 1.45; }
+html[data-theme="dark"] .quick-picks { background: linear-gradient(135deg, #302d33, var(--paper)); }
+html[data-theme="dark"] .quick-pick-list button { background: var(--warm); }
+html[data-theme="dark"] .quick-pick-list button.active { background: var(--maroon); }
