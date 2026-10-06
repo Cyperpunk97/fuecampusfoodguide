@@ -17,22 +17,33 @@ export function currentDish(reference: DishReference, menus: Record<string, Rest
   return named.length === 1 ? named[0] : undefined;
 }
 
+function validReference(value: unknown): value is DishReference {
+  const item = value && typeof value === 'object' ? (value as { item?: unknown }).item : null;
+  const row = value as Partial<DishReference> | null;
+  return Boolean(row && typeof row.key === 'string' && row.key.length <= 240 && typeof row.venueId === 'string' && row.venueId.length <= 120 && typeof row.venueName === 'string' && row.venueName.length <= 160 && item && typeof item === 'object' && typeof (item as MenuItem).name === 'string');
+}
+
+/** Shared with backup import so malformed files cannot poison device state. */
+export function sanitizeFoodState(value: unknown): FoodState {
+  const raw = value && typeof value === 'object' ? value as Partial<FoodState> : {};
+  const saved = Array.isArray(raw.saved) ? raw.saved.filter(validReference).slice(0, 300) : [];
+  const plan = Array.isArray(raw.plan) ? raw.plan.filter(validReference).slice(0, 50).map(item => ({
+    ...item,
+    quantity: Math.min(20, Math.max(1, Math.round(Number((item as PlannedDish).quantity) || 1))),
+  })) : [];
+  const budget = Number.isFinite(raw.budget) && Number(raw.budget) > 0 && Number(raw.budget) <= 100000 ? Number(raw.budget) : 250;
+  const reports = Array.isArray(raw.reports) ? raw.reports.filter(report => report && typeof report === 'object' && typeof (report as MenuReport).venueId === 'string').slice(0, 200) as MenuReport[] : [];
+  return { saved, plan, budget, reports };
+}
+
 function readState(): FoodState {
-  try {
-    const raw = JSON.parse(localStorage.getItem(KEY) || 'null') as FoodState | null;
-    if (!raw) return EMPTY;
-    const reference = (value: DishReference) => value && typeof value.key === 'string' && typeof value.venueId === 'string' && value.item && typeof value.item.name === 'string';
-    return { saved: Array.isArray(raw.saved) ? raw.saved.filter(reference).slice(0, 300) : [],
-      plan: Array.isArray(raw.plan) ? raw.plan.filter(reference).slice(0, 50).map(item => ({ ...item, quantity: Math.min(20, Math.max(1, Math.round(Number(item.quantity) || 1))) })) : [],
-      budget: Number.isFinite(raw.budget) && raw.budget > 0 ? raw.budget : 250,
-      reports: Array.isArray(raw.reports) ? raw.reports.filter(report => report && typeof report.venueId === 'string').slice(0, 200) : [] };
-  } catch { return EMPTY; }
+  try { return sanitizeFoodState(JSON.parse(localStorage.getItem(KEY) || 'null')); } catch { return { ...EMPTY, saved: [], plan: [], reports: [] }; }
 }
 
 function useFoodState() {
   const [state, setState] = useState<FoodState>(readState);
   useEffect(() => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { window.dispatchEvent(new Event('cs-storage-error')); } }, [state]);
-  const tools = useMemo(() => ({
+  return useMemo(() => ({
     ...state,
     toggleSaved(venue: Venue, item: MenuItem) {
       const key = dishKey(venue.id, item);
@@ -41,17 +52,22 @@ function useFoodState() {
     removeSaved(key: string) { setState(old => ({ ...old, saved: old.saved.filter(dish => dish.key !== key) })); },
     addToPlan(venue: Venue, item: MenuItem) {
       const key = dishKey(venue.id, item);
-      const previous = state.plan.find(dish => dish.key === key);
-      if (previous && previous.quantity >= 20 || !previous && state.plan.length >= 50) return false;
-      setState(old => ({ ...old, plan: old.plan.some(dish => dish.key === key) ? old.plan.map(dish => dish.key === key ? { ...dish, quantity: Math.min(20, dish.quantity + 1) } : dish) : [...old.plan, { key, venueId: venue.id, venueName: venue.brand, item, savedAt: new Date().toISOString(), quantity: 1 }].slice(0, 50) }));
-      return true;
+      let added = false;
+      setState(old => {
+        const previous = old.plan.find(dish => dish.key === key);
+        if (previous && previous.quantity >= 20 || !previous && old.plan.length >= 50) return old;
+        added = true;
+        return { ...old, plan: previous ? old.plan.map(dish => dish.key === key ? { ...dish, quantity: Math.min(20, dish.quantity + 1) } : dish) : [...old.plan, { key, venueId: venue.id, venueName: venue.brand, item, savedAt: new Date().toISOString(), quantity: 1 }] };
+      });
+      return added;
     },
     setQuantity(key: string, quantity: number) { setState(old => ({ ...old, plan: quantity < 1 ? old.plan.filter(dish => dish.key !== key) : old.plan.map(dish => dish.key === key ? { ...dish, quantity: Math.min(20, Math.round(quantity)) } : dish) })); },
     clearPlan() { setState(old => ({ ...old, plan: [] })); },
     setBudget(budget: number) { if (Number.isFinite(budget) && budget > 0 && budget <= 100000) setState(old => ({ ...old, budget })); },
     reportMenu(report: Omit<MenuReport, 'id' | 'date'>) { setState(old => ({ ...old, reports: [{ ...report, id: `report-${Date.now()}`, date: new Date().toISOString() }, ...old.reports].slice(0, 200) })); },
+    restore(value: unknown) { setState(sanitizeFoodState(value)); },
+    clear() { setState({ ...EMPTY, saved: [], plan: [], reports: [] }); },
   }), [state]);
-  return tools;
 }
 type FoodTools = ReturnType<typeof useFoodState>;
 const Context = createContext<FoodTools | null>(null);

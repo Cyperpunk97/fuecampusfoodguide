@@ -1,10 +1,12 @@
-const APP_CACHE = 'cs-family-app-v4';
+const APP_CACHE = 'cs-family-app-v5';
 const SOURCE_CACHE = 'cs-family-original-v3';
 const LOGO_CACHE = 'cs-family-logos-v2';
 const MENU_IMAGE_CACHE = 'cs-family-dish-images-v1';
 const MENU_IMAGE_HOSTS = ['talabat.dhmedia.io', 'images.deliveryhero.io', 'images.talabat.com'];
 const ORIGINAL_PREFIX = 'https://raw.githubusercontent.com/Cyperpunk97/CS-FAMILY-STAR/d8392863f32443974543d50307774a81def72b07/';
-const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icon.svg', '/CREDITS.md'];
+// Workers and install icons are precached, not generated at runtime. This keeps a
+// reopened app functional when the network is unavailable after the first visit.
+const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icon.svg', '/icons/icon-192.png', '/icons/icon-512.png', '/workers/cacheWorker.js', '/workers/sourceWorker.js', '/CREDITS.md'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(APP_CACHE).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -38,10 +40,6 @@ self.addEventListener('fetch', event => {
       if (response.ok || response.type === 'opaque') await cache.put(event.request, response.clone());
       return response;
     }));
-    return;
-  }
-  if (url.origin === self.location.origin && url.pathname.startsWith('/icons/')) {
-    event.respondWith(caches.open('cs-family-icons-v2').then(cache => cache.match(event.request)).then(response => response || fetch(event.request)));
     return;
   }
   if (url.origin === self.location.origin) {
