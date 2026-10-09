@@ -11,7 +11,9 @@
   overflow: hidden;
   border: 1px solid #eaded6;
   border-radius: 17px;
-  background: linear-gradient(135deg, #fffdf9 0%, #f7e9e2 100%);
+  background:
+    linear-gradient(90deg, rgba(255,253,249,.98) 0%, rgba(255,253,249,.94) 45%, rgba(255,250,245,.56) 69%, rgba(255,250,245,.16) 100%),
+    url('/campus-food-hero.jpg') center / cover no-repeat;
 }
 .hero-discover .hero-copy { position: relative; z-index: 1; max-width: 30ch; }
 .hero-discover .hero-eyebrow { display: inline-flex; align-items: center; gap: 5px; color: var(--maroon); font-size: 9px; font-weight: 800; letter-spacing: .75px; }
@@ -20,12 +22,12 @@
 .hero-location { display: inline-flex; align-items: center; gap: 5px; max-width: 100%; min-height: 28px; margin-top: 11px; color: var(--maroon); font-size: 10px; text-align: start; }
 .hero-location>span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hero-location strong { color: var(--ink); font-weight: 750; }
-.hero-art { position: relative; display: grid; place-items: center; align-self: stretch; width: 76px; min-width: 76px; overflow: hidden; color: var(--maroon); }
-.hero-art::before { position: absolute; width: 116px; height: 116px; border: 1px solid #dfbba9; border-radius: 50%; content: ''; }
-.hero-art::after { position: absolute; width: 80px; height: 80px; border: 1px dashed #d6a797; border-radius: 50%; content: ''; }
+.hero-art { position: relative; z-index: 1; display: grid; place-items: center; align-self: flex-end; width: 58px; min-width: 58px; height: 58px; overflow: hidden; border: 1px solid rgba(255,255,255,.72); border-radius: 16px; color: var(--maroon); background: rgba(255,253,249,.65); box-shadow: 0 8px 22px rgba(89,47,32,.12); backdrop-filter: blur(7px); }
+.hero-art::before { position: absolute; width: 47px; height: 47px; border: 1px solid rgba(130,39,39,.22); border-radius: 50%; content: ''; }
+.hero-art::after { display: none; }
 .hero-art>svg { position: relative; z-index: 1; transform: rotate(-8deg); }
-.hero-art>span { position: absolute; z-index: 1; top: 17px; inset-inline-end: 4px; color: #bd780e; font-size: 19px; }
-.hero-art>i { position: absolute; z-index: 1; bottom: 19px; inset-inline-start: 4px; width: 11px; height: 11px; border-radius: 50%; background: #c97b68; }
+.hero-art>span { position: absolute; z-index: 1; top: 3px; inset-inline-end: 6px; color: #bd780e; font-size: 13px; }
+.hero-art>i { position: absolute; z-index: 1; bottom: 8px; inset-inline-start: 8px; width: 6px; height: 6px; border-radius: 50%; background: #c97b68; }
 .quick-intents { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 10px; }
 .quick-intents>button { display: flex; align-items: center; justify-content: space-between; min-width: 0; min-height: 69px; padding: 9px 8px 9px 10px; border: 1px solid var(--line); border-radius: 11px; background: var(--white); color: var(--maroon); text-align: start; transition: border-color .18s ease, background-color .18s ease, transform .18s ease; }
 .quick-intents>button:active { border-color: #d5a6a0; background: var(--blush); transform: scale(.985); }
@@ -73,8 +75,10 @@
 .welcome-dialog .privacy-note { margin: 14px 0 10px; }
 .welcome-skip { display: flex; margin: 9px auto 0; color: var(--muted); }
 
-html[data-theme="dark"] .hero-discover, html[data-theme="dark"] .discovery-spotlight { border-color: #493d40; background: linear-gradient(135deg, #2c272c, #382a2e); }
-html[data-theme="dark"] .hero-art::before, html[data-theme="dark"] .hero-art::after { border-color: #754958; }
+html[data-theme="dark"] .hero-discover { border-color: #493d40; background: linear-gradient(90deg, rgba(44,39,44,.98) 0%, rgba(44,39,44,.92) 49%, rgba(44,39,44,.42) 100%), url('/campus-food-hero.jpg') center / cover no-repeat; }
+html[data-theme="dark"] .discovery-spotlight { border-color: #493d40; background: #2c272c; }
+html[data-theme="dark"] .hero-art { border-color: #5a464d; background: rgba(45,39,44,.70); }
+html[data-theme="dark"] .hero-art::before { border-color: #754958; }
 html[data-theme="dark"] .quick-intents>button { border-color: var(--line); }
 
 @media (hover: hover) {
@@ -148,12 +152,11 @@ html[data-theme="dark"] .quick-intents>button { border-color: var(--line); }
   .hero-discover h2 { max-width: 520px; font-size: 38px; }
   .hero-discover p { max-width: 55ch; font-size: 12px; }
   .hero-location { margin-top: 15px; font-size: 11px; }
-  .hero-art { width: 192px; min-width: 192px; }
-  .hero-art::before { width: 220px; height: 220px; }
-  .hero-art::after { width: 151px; height: 151px; }
-  .hero-art>svg { width: 71px; height: 71px; }
-  .hero-art>span { top: 27px; inset-inline-end: 26px; font-size: 24px; }
-  .hero-art>i { bottom: 25px; inset-inline-start: 27px; }
+  .hero-art { width: 86px; min-width: 86px; height: 86px; border-radius: 21px; }
+  .hero-art::before { width: 70px; height: 70px; }
+  .hero-art>svg { width: 37px; height: 37px; }
+  .hero-art>span { top: 5px; inset-inline-end: 10px; font-size: 17px; }
+  .hero-art>i { bottom: 11px; inset-inline-start: 11px; }
   .quick-intents { grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
   .quick-intents>button { min-height: 78px; padding: 11px; }
   .quick-intents strong { font-size: 11px; }

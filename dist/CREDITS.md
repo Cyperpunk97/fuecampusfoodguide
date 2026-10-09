@@ -5,7 +5,9 @@ Original creators: Youssef Ahmed and Ahmed Abdelwahab.
 
 Only restaurant logos already referenced by the original `lib/venues.ts` are used. Logo files are served, without alteration, from the original repository at commit `d8392863f32443974543d50307774a81def72b07`. Brands without an authored logo use the original app's initials fallback.
 
-Dish photographs shown inside menus come from the original app's menu data (`lib/menus.ts` and the cached Talabat Egypt extraction in `lib/talabatMenusData.json`), served by the same Delivery Hero/Talabat CDNs that power the source app. Cached source data is not verification of today's price or availability at the campus branch. No stock-photography sources are introduced by this app.
+Dish photographs shown inside menus come from the original app's menu data (`lib/menus.ts` and the cached Talabat Egypt extraction in `lib/talabatMenusData.json`), served by the same Delivery Hero/Talabat CDNs that power the source app. Cached source data is not verification of today's price or availability at the campus branch.
+
+`public/campus-food-hero.jpg` is an AI-generated editorial hero image created for CS Family Star. It is a non-literal campus-food illustration used for brand atmosphere only; it does not depict a real FUE venue, menu item, student, or restaurant brand.
 
 The interface palette mirrors the source app's tokens: deep maroon brand (`#822727`–`#571a1a`), amber star accent (`#f59e0b`), warm surfaces (`#faf8f5`), and WCAG-AA ink tones (`#1c1917`, `#57534e`, `#6b6560`).
 
