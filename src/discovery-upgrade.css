@@ -206,3 +206,32 @@ html[data-theme="dark"] .quick-intents>button { border-color: var(--line); }
   .quick-intents small { font-size: 8px; }
   .hero-discover { min-height: 165px; padding: 14px; }
 }
+
+/* Finishing touches: clear state feedback, keyboard cues, and calm tactile motion. */
+.results-subtitle { display: block; margin: 3px 0 0; color: var(--muted); font-size: 10px; line-height: 1.35; }
+.results-count { transition: transform .18s ease, background-color .18s ease; }
+.results-section:has(.active-filters) .results-count { background: #f3dada; }
+.quick-intents>button:focus-visible,
+.spotlight-card:focus-visible,
+.hero-location:focus-visible,
+.spotlight-heading>button:focus-visible { outline-offset: 3px; }
+.venue-card:active { background: color-mix(in srgb, var(--blush) 42%, var(--white)); }
+.mobile-nav>button>span { transition: color .18s ease, background-color .18s ease, transform .18s ease; }
+.mobile-nav>button:active>span { transform: scale(.92); }
+.search-box kbd { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-discover { animation: discovery-enter .38s cubic-bezier(.2,.8,.2,1) both; }
+  .quick-intents { animation: discovery-enter .42s .04s cubic-bezier(.2,.8,.2,1) both; }
+  .discovery-spotlight { animation: discovery-enter .44s .08s cubic-bezier(.2,.8,.2,1) both; }
+  .results-section { animation: discovery-enter .46s .1s cubic-bezier(.2,.8,.2,1) both; }
+}
+@keyframes discovery-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (min-width: 1000px) {
+  .results-subtitle { font-size: 10.5px; }
+  .search-box kbd { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 4px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; color: var(--muted); background: var(--warm); font-size: 9px; font-family: inherit; }
+  .venue-card:active { transform: translateY(0); }
+}
+
+html[data-theme="dark"] .results-section:has(.active-filters) .results-count { background: #492f35; }
