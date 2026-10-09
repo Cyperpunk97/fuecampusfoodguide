@@ -103,6 +103,23 @@ export const VenueCard = memo(function VenueCard({ venue: v, favorite, compared,
   </article>;
 });
 
+export const MarketplaceVenueCard = memo(function MarketplaceVenueCard({ venue: v, favorite, compared, onAction, menuCount, origin }: { venue: Venue; favorite: boolean; compared: boolean; onAction: VenueAction; menuCount: number; origin?: { lat: number; lng: number } }) {
+  const { t, n } = useI18n();
+  return <article className={`market-venue ${compared ? 'is-compared' : ''}`}>
+    <button className="market-venue-cover" onClick={() => onAction('open', v)} aria-label={`${t('Explore', 'اكتشف')} ${v.name}`}>
+      <span className="market-venue-orbit" aria-hidden="true"><i /><i /><i /></span>
+      <span className="market-venue-brand"><VenueLogo venue={v} /></span>
+      <span className="market-venue-label">{v.onCampus ? t('On campus', 'داخل الحرم') : t('Nearby', 'قريب')}</span>
+    </button>
+    <div className="market-venue-body">
+      <div className="market-venue-title"><button onClick={() => onAction('open', v)}><h3>{v.brand}</h3></button><button className={`market-save ${favorite ? 'is-saved' : ''}`} onClick={() => { void triggerHaptic(favorite ? 'light' : 'success'); onAction('favorite', v); }} aria-label={`${favorite ? t('Remove') : t('Save')} ${v.brand}`} aria-pressed={favorite}><Heart size={18} fill={favorite ? 'currentColor' : 'none'} /></button></div>
+      <p>{v.signature || t(v.kind)}</p>
+      <div className="market-venue-facts"><span><Clock3 size={13} />{n(v.walk)} {t('min', 'د')}</span>{v.reviewCount ? <span><Star size={13} fill="currentColor" />{n(v.rating.toFixed(1))}</span> : <span>{t('New', 'جديد')}</span>}<PriceLabel venue={v} showNote={false} /></div>
+      <div className="market-venue-actions"><button onClick={() => onAction('open', v, 'menu')}><BookOpen size={14}/>{t('Menu')} {menuCount > 0 && <small>{n(menuCount)}</small>}</button><a href={directionsUrl(v, origin)} target="_blank" rel="noopener noreferrer" onClick={() => void triggerHaptic('selection')}><Navigation size={14}/><span className="sr-only">{t('Directions')}</span></a><button className={compared ? 'is-selected' : ''} onClick={() => { void triggerHaptic('selection'); onAction('compare', v); }} aria-label={`${t('Compare')} ${v.brand}`} aria-pressed={compared}>{compared ? <Check size={14}/> : <ArrowUpDown size={14}/>}</button></div>
+    </div>
+  </article>;
+});
+
 export function ProfileEditor({ name, facultyId, onSave, favoriteCount, reviewCount }: { name: string; facultyId: string; onSave: (name: string, facultyId: string) => void; favoriteCount: number; reviewCount: number }) {
   const { t, n, lang } = useI18n(); const [draftName, setName] = useState(name === 'Campus foodie' ? '' : name); const [faculty, setFaculty] = useState(facultyId); const [error, setError] = useState('');
   return <form className="profile-form" onSubmit={e => { e.preventDefault(); if (draftName.trim().length < 2) { setError(t('Enter a name with at least 2 characters.', 'اكتب اسم من حرفين على الأقل.')); return; } onSave(draftName.trim(), faculty); }}>

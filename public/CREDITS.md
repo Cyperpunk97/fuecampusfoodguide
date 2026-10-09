@@ -1,4 +1,4 @@
-# CS Family Star — Original logo credits
+# FUE Food Market — Original logo credits
 
 Original app and asset catalog: https://github.com/Cyperpunk97/CS-FAMILY-STAR
 Original creators: Youssef Ahmed and Ahmed Abdelwahab.
@@ -7,13 +7,7 @@ Only restaurant logos already referenced by the original `lib/venues.ts` are use
 
 Dish photographs shown inside menus come from the original app's menu data (`lib/menus.ts` and the cached Talabat Egypt extraction in `lib/talabatMenusData.json`), served by the same Delivery Hero/Talabat CDNs that power the source app. Cached source data is not verification of today's price or availability at the campus branch.
 
-`public/campus-food-hero.jpg` is an AI-generated editorial hero image created for CS Family Star. It is a non-literal campus-food illustration used for brand atmosphere only; it does not depict a real FUE venue, menu item, student, or restaurant brand.
-
-The interface palette mirrors the source app's tokens: deep maroon brand (`#822727`–`#571a1a`), amber star accent (`#f59e0b`), warm surfaces (`#faf8f5`), and WCAG-AA ink tones (`#1c1917`, `#57534e`, `#6b6560`).
-
-## 3D interface
-
-The interactive hero scene uses dependency-free CSS perspective and procedural shapes. The cup, floating bites, plate, lighting cues, and motion are original interface geometry; no additional branded 3D assets are used.
+The FUE Food Market interface uses original layout, illustration, and color treatment. It does not use external food photography or branded 3D models.
 
 ## Original Wikimedia attribution
 
