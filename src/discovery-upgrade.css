@@ -235,3 +235,24 @@ html[data-theme="dark"] .quick-intents>button { border-color: var(--line); }
 }
 
 html[data-theme="dark"] .results-section:has(.active-filters) .results-count { background: #492f35; }
+
+/* Trust signals stay specific: source, location confidence, and what requires confirmation. */
+.trust-panel { margin: 14px 0; padding: 13px; border: 1px solid #eaded6; border-radius: 10px; background: #fffaf5; }
+.trust-panel .section-overline { margin-bottom: 4px; color: var(--maroon); }
+.trust-panel .section-overline h3 { color: var(--maroon-dark); font-size: 13px; }
+.trust-panel>.muted { font-size: 10px; line-height: 1.45; }
+.trust-list { display: grid; gap: 9px; margin-top: 11px; }
+.trust-list>div { display: flex; align-items: flex-start; gap: 8px; color: var(--maroon); }
+.trust-list>div>svg { flex: none; margin-top: 1px; }
+.trust-list span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.trust-list strong { color: var(--ink); font-size: 10.5px; line-height: 1.25; }
+.trust-list small { color: var(--muted); font-size: 9.5px; line-height: 1.42; }
+.trust-warning { margin: 10px 0 0; padding: 8px 9px; border-inline-start: 2px solid #c38a29; color: #76511d; background: #fff4dd; font-size: 9.5px; line-height: 1.45; }
+.trust-report { margin-top: 10px; }
+html[data-theme="dark"] .trust-panel { border-color: #493d40; background: #2c272c; }
+html[data-theme="dark"] .trust-warning { color: #ead4a1; background: #352b19; }
+
+@media (min-width: 1000px) {
+  .trust-panel { padding: 15px; }
+  .trust-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+}

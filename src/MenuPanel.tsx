@@ -13,14 +13,14 @@ import { type MenuPreference } from './original';
 type Props = {
   venue: Venue; menu: RestaurantMenu; cachedMenus: Menus; backend: string;
   sourceOptions?: { talabat?: RestaurantMenu; repository?: RestaurantMenu };
-  sourceLoading?: boolean; onSelectSource?: (source: MenuPreference) => void; onReload?: () => void;
+  sourceLoading?: boolean; openReportToken?: number; onSelectSource?: (source: MenuPreference) => void; onReload?: () => void;
   onAudit?: () => void; onPlan?: () => void;
   onChange: (menu: RestaurantMenu) => void; onReset: () => void; onConnect: () => void;
 };
 const EMPTY_DISH = { id: '', name: '', nameAr: '', description: '', category: '', price: '', image: '', popular: false, student: false, vegetarian: false, spicy: false };
 const MENU_PAGE_SIZE = typeof window !== 'undefined' && window.matchMedia('(max-width: 760px)').matches ? 16 : 40;
 
-export function MenuPanel({ venue, menu, cachedMenus, backend, sourceOptions, sourceLoading = false, onSelectSource, onReload, onAudit, onPlan, onChange, onReset, onConnect }: Props) {
+export function MenuPanel({ venue, menu, cachedMenus, backend, sourceOptions, sourceLoading = false, openReportToken = 0, onSelectSource, onReload, onAudit, onPlan, onChange, onReset, onConnect }: Props) {
   const { t, n, lang } = useI18n(); const tools = useFoodTools();
   const [query, setQuery] = useState(''); const [category, setCategory] = useState('all'); const [flag, setFlag] = useState('all');
   const [maxPrice, setMaxPrice] = useState(''); const [sort, setSort] = useState('source'); const [visible, setVisible] = useState(MENU_PAGE_SIZE);
@@ -40,6 +40,7 @@ export function MenuPanel({ venue, menu, cachedMenus, backend, sourceOptions, so
 
   useEffect(() => { setVisible(MENU_PAGE_SIZE); }, [query, category, flag, maxPrice, sort, key]);
   useEffect(() => { if (category !== 'all' && !menu.categories.includes(category)) setCategory('all'); }, [category, menu.categories]);
+  useEffect(() => { if (openReportToken) { setMode('report'); setAdvancedOpen(true); setError(''); } }, [openReportToken]);
   useEffect(() => { photoController.current?.abort(); setCheckingPhotos(false); setPhotoResults([]); return () => photoController.current?.abort(); }, [menu.items]);
   useEffect(() => {
     if (!backend || sourceLoading || menu.items.length) { setBusy(false); return; }
