@@ -25,9 +25,28 @@
 .hero-art { position: relative; z-index: 1; align-self: flex-end; width: 118px; min-width: 118px; height: 118px; overflow: hidden; border: 1px solid rgba(255,255,255,.78); border-radius: 23px; background: rgba(255,253,249,.34); box-shadow: 0 16px 36px rgba(72,35,24,.19), inset 0 1px rgba(255,255,255,.56); backdrop-filter: blur(7px); transform: translateZ(0); }
 .hero-art::before { position: absolute; z-index: 0; inset: 13px; border: 1px solid rgba(130,39,39,.17); border-radius: 50%; content: ''; }
 .hero-art::after { position: absolute; z-index: 0; width: 55%; height: 55%; inset: auto auto 4px 2px; border-radius: 50%; background: radial-gradient(circle, rgba(244,178,67,.36), transparent 68%); content: ''; }
-.food-orbit { position: relative; z-index: 1; width: 100%; height: 100%; }
-.food-orbit canvas { display: block; width: 100% !important; height: 100% !important; outline: none; touch-action: none; }
-.food-orbit-fallback { display: grid; place-items: center; width: 100%; height: 100%; color: var(--gold); font-size: 34px; }
+.food-orbit { position: relative; z-index: 1; width: 100%; height: 100%; perspective: 360px; }
+.food-orbit-stage { position: absolute; top: 50%; left: 50%; width: 76px; height: 76px; transform: translate(-50%, -47%) rotateX(58deg) rotateZ(-17deg); transform-style: preserve-3d; animation: food-orbit-turn 7s linear infinite; }
+.orbit-plate, .orbit-saucer, .orbit-cup, .orbit-bite, .orbit-star, .orbit-steam { position: absolute; display: block; transform-style: preserve-3d; }
+.orbit-plate { inset: 7px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff9f0 0 22%, #e7bca6 23% 32%, #8a2c30 33% 45%, #672123 46% 62%, #f0d4c5 63% 66%, #78272a 67%); box-shadow: 0 9px 13px rgba(69,28,21,.28), inset 2px 3px 5px #fff7ef; transform: translateZ(2px); }
+.orbit-saucer { top: 23px; left: 21px; width: 36px; height: 36px; border: 4px solid #f8e2d1; border-radius: 50%; background: radial-gradient(circle, #7d3027 0 38%, #f4cbb8 40% 53%, #f8e2d1 55%); box-shadow: 0 4px 7px rgba(78,31,22,.3); transform: translateZ(12px); }
+.orbit-cup { top: 23px; left: 25px; width: 28px; height: 27px; overflow: visible; border-radius: 5px 5px 11px 11px; background: linear-gradient(90deg, #f8e6d9, #fffaf4 43%, #e9c4b2); box-shadow: inset -4px -3px 6px rgba(121,51,38,.15), 4px 6px 8px rgba(74,28,20,.25); transform: translateZ(26px); }
+.orbit-cup::before { position: absolute; top: -5px; left: 1px; width: 26px; height: 10px; border-radius: 50%; background: radial-gradient(ellipse, #492019 0 42%, #f5ddcf 44% 62%, #fff7f0 64%); box-shadow: inset 0 2px 2px rgba(54,22,18,.45); content: ''; }
+.orbit-cup::after { position: absolute; top: 6px; right: -10px; width: 12px; height: 14px; border: 4px solid #f7e5d8; border-inline-start: 0; border-radius: 0 9px 9px 0; box-shadow: 2px 2px 3px rgba(74,28,20,.17); content: ''; }
+.orbit-cup>i { position: absolute; right: 4px; bottom: 5px; width: 8px; height: 2px; border-radius: 2px; background: #bc5754; }
+.orbit-cup>b { position: absolute; left: 5px; bottom: 5px; width: 8px; height: 2px; border-radius: 2px; background: #d57967; }
+.orbit-star { top: -2px; right: 5px; width: 15px; height: 15px; clip-path: polygon(50% 0, 61% 35%, 100% 50%, 61% 63%, 50% 100%, 38% 63%, 0 50%, 38% 35%); background: linear-gradient(135deg, #fff6aa, #e69a27 62%, #a94b24); box-shadow: 0 0 12px rgba(244,178,67,.8); transform: translateZ(42px) rotate(15deg); animation: orbit-star-pulse 1.8s ease-in-out infinite; }
+.orbit-bite { width: 13px; height: 13px; border-radius: 44% 56% 52% 48%; box-shadow: 0 3px 5px rgba(72,27,20,.25); }
+.orbit-bite-one { top: 2px; left: 4px; background: linear-gradient(135deg, #f5cc77, #cb713c); transform: translateZ(30px); }
+.orbit-bite-two { right: -1px; bottom: 11px; background: linear-gradient(135deg, #e77b5e, #9d3931); transform: translateZ(38px); }
+.orbit-bite-three { bottom: -3px; left: 7px; width: 9px; height: 9px; background: #f4c34f; transform: translateZ(24px); }
+.orbit-steam { width: 9px; height: 20px; border: 2px solid rgba(255,255,255,.72); border-bottom: 0; border-left-color: transparent; border-radius: 50%; opacity: .78; }
+.orbit-steam-one { top: 2px; left: 29px; transform: translateZ(35px) rotate(-15deg); animation: steam-rise 2.3s ease-in-out infinite; }
+.orbit-steam-two { top: 5px; left: 42px; transform: translateZ(31px) rotate(17deg) scale(.75); animation: steam-rise 2.3s .5s ease-in-out infinite; }
+@keyframes food-orbit-turn { 0% { transform: translate(-50%, -47%) rotateX(58deg) rotateZ(-17deg); } 50% { transform: translate(-50%, -47%) rotateX(62deg) rotateZ(163deg); } 100% { transform: translate(-50%, -47%) rotateX(58deg) rotateZ(343deg); } }
+@keyframes orbit-star-pulse { 50% { filter: brightness(1.22); transform: translateZ(48px) rotate(45deg) scale(1.12); } }
+@keyframes steam-rise { 50% { opacity: .2; transform: translate3d(3px, -9px, 42px) rotate(8deg); } }
+@media (prefers-reduced-motion: reduce) { .food-orbit-stage, .orbit-star, .orbit-steam { animation: none; } }
 .quick-intents { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 10px; }
 .quick-intents>button { display: flex; align-items: center; justify-content: space-between; min-width: 0; min-height: 69px; padding: 9px 8px 9px 10px; border: 1px solid var(--line); border-radius: 11px; background: var(--white); color: var(--maroon); text-align: start; transition: border-color .18s ease, background-color .18s ease, transform .18s ease; }
 .quick-intents>button:active { border-color: #d5a6a0; background: var(--blush); transform: scale(.985); }

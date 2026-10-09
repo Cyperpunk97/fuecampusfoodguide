@@ -13,7 +13,7 @@ The interface palette mirrors the source app's tokens: deep maroon brand (`#8227
 
 ## 3D interface
 
-The interactive hero scene uses [Three.js](https://threejs.org/) and [React Three Fiber](https://docs.pmnd.rs/react-three-fiber), both under the MIT License. The cups, floating bites, lighting, and motion are procedural geometry; no additional branded 3D assets are used.
+The interactive hero scene uses dependency-free CSS perspective and procedural shapes. The cup, floating bites, plate, lighting cues, and motion are original interface geometry; no additional branded 3D assets are used.
 
 ## Original Wikimedia attribution
 
