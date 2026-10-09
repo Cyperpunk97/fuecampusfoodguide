@@ -75,7 +75,7 @@ export const VenueCard = memo(function VenueCard({ venue: v, favorite, compared,
       <div className="venue-card-top"><VenueLogo venue={v} /><span className="venue-kind">{v.category === 'Cafe' ? <Coffee size={13} /> : <UtensilsCrossed size={13} />}{t(v.kind)}</span></div>
       <div className="venue-title-row"><h3>{v.brand}</h3>{v.reviewCount ? <span className="rating"><Star size={13} fill="currentColor" /><b>{n(v.rating.toFixed(1))}</b><span>({n(v.reviewCount)})</span></span> : <span className="unrated-tag">{t('No reviews yet')}</span>}</div>
       <p className="venue-address"><MapPin size={13} /><span>{v.location}</span></p>
-      <p className="venue-signature"><span>{t(v.kind)}</span>{v.onCampus && <span className="venue-campus-separator">/ {t('On campus')}</span>}</p>
+      <p className="venue-signature"><Sparkles size={12} /><span>{v.signature || t(v.kind)}</span>{v.onCampus && <span className="venue-campus-separator">/ {t('On campus')}</span>}</p>
       <div className="venue-card-meta"><span><Clock3 size={14} /><strong>{n(v.walk)} {t('min walk', 'دقيقة مشي')}</strong><small>{n(distanceLabel(v))}</small></span><PriceLabel venue={v} /></div>
       <div className="venue-status">{v.onCampus && <span><i />{t('On campus')}</span>}{v.openState === 'open' && <span className="open-badge">{t('Open now')}</span>}{v.openState === 'closed' && <span className="closed-badge">{t('Closed')}</span>}{v.approximate && <span>{t('Approximate location')}</span>}</div>
     </button>
