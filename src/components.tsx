@@ -75,7 +75,7 @@ export const VenueCard = memo(function VenueCard({ venue: v, favorite, compared,
       <div className="venue-card-top"><VenueLogo venue={v} /><span className="venue-kind">{v.category === 'Cafe' ? <Coffee size={13} /> : <UtensilsCrossed size={13} />}{t(v.kind)}</span></div>
       <div className="venue-title-row"><h3>{v.brand}</h3>{v.reviewCount ? <span className="rating"><Star size={13} fill="currentColor" /><b>{n(v.rating.toFixed(1))}</b><span>({n(v.reviewCount)})</span></span> : <span className="unrated-tag">{t('No reviews yet')}</span>}</div>
       <p className="venue-address"><MapPin size={13} /><span>{v.location}</span></p>
-      <p className="venue-signature"><span>{t(v.kind)}</span>{v.onCampus && <span className="venue-campus-separator">/ {t('On campus')}</span>}</p>
+      <p className="venue-signature"><Sparkles size={12} /><span>{v.signature || t(v.kind)}</span>{v.onCampus && <span className="venue-campus-separator">/ {t('On campus')}</span>}</p>
       <div className="venue-card-meta"><span><Clock3 size={14} /><strong>{n(v.walk)} {t('min walk', 'دقيقة مشي')}</strong><small>{n(distanceLabel(v))}</small></span><PriceLabel venue={v} /></div>
       <div className="venue-status">{v.onCampus && <span><i />{t('On campus')}</span>}{v.openState === 'open' && <span className="open-badge">{t('Open now')}</span>}{v.openState === 'closed' && <span className="closed-badge">{t('Closed')}</span>}{v.approximate && <span>{t('Approximate location')}</span>}</div>
     </button>
@@ -99,6 +99,23 @@ export const VenueCard = memo(function VenueCard({ venue: v, favorite, compared,
       <button className={compared ? 'compared' : ''} onClick={() => { void triggerHaptic('selection'); onAction('compare', v); }} aria-pressed={compared} aria-label={`${t('Compare')} ${v.brand}`}>
         {compared ? <Check size={14} /> : <ArrowUpDown size={14} />}{t('Compare')}
       </button>
+    </div>
+  </article>;
+});
+
+export const MarketplaceVenueCard = memo(function MarketplaceVenueCard({ venue: v, favorite, compared, onAction, menuCount, origin }: { venue: Venue; favorite: boolean; compared: boolean; onAction: VenueAction; menuCount: number; origin?: { lat: number; lng: number } }) {
+  const { t, n } = useI18n();
+  return <article className={`market-venue ${compared ? 'is-compared' : ''}`}>
+    <button className="market-venue-cover" onClick={() => onAction('open', v)} aria-label={`${t('Explore', 'اكتشف')} ${v.name}`}>
+      <span className="market-venue-orbit" aria-hidden="true"><i /><i /><i /></span>
+      <span className="market-venue-brand"><VenueLogo venue={v} /></span>
+      <span className="market-venue-label">{v.onCampus ? t('On campus', 'داخل الحرم') : t('Nearby', 'قريب')}</span>
+    </button>
+    <div className="market-venue-body">
+      <div className="market-venue-title"><button onClick={() => onAction('open', v)}><h3>{v.brand}</h3></button><button className={`market-save ${favorite ? 'is-saved' : ''}`} onClick={() => { void triggerHaptic(favorite ? 'light' : 'success'); onAction('favorite', v); }} aria-label={`${favorite ? t('Remove') : t('Save')} ${v.brand}`} aria-pressed={favorite}><Heart size={18} fill={favorite ? 'currentColor' : 'none'} /></button></div>
+      <p>{v.signature || t(v.kind)}</p>
+      <div className="market-venue-facts"><span><Clock3 size={13} />{n(v.walk)} {t('min', 'د')}</span>{v.reviewCount ? <span><Star size={13} fill="currentColor" />{n(v.rating.toFixed(1))}</span> : <span>{t('New', 'جديد')}</span>}<PriceLabel venue={v} showNote={false} /></div>
+      <div className="market-venue-actions"><button onClick={() => onAction('open', v, 'menu')}><BookOpen size={14}/>{t('Menu')} {menuCount > 0 && <small>{n(menuCount)}</small>}</button><a href={directionsUrl(v, origin)} target="_blank" rel="noopener noreferrer" onClick={() => void triggerHaptic('selection')}><Navigation size={14}/><span className="sr-only">{t('Directions')}</span></a><button className={compared ? 'is-selected' : ''} onClick={() => { void triggerHaptic('selection'); onAction('compare', v); }} aria-label={`${t('Compare')} ${v.brand}`} aria-pressed={compared}>{compared ? <Check size={14}/> : <ArrowUpDown size={14}/>}</button></div>
     </div>
   </article>;
 });

@@ -11,7 +11,9 @@ const __dirname = path.dirname(__filename);
 // https://vite.dev/config/
 export default defineConfig({
   server: {
-    host: "127.0.0.1",
+    host: "0.0.0.0",
+    // Arena previews are served through a generated e2b.app hostname.
+    allowedHosts: true,
   },
   plugins: [react(), tailwindcss(), viteSingleFile()],
   resolve: {
