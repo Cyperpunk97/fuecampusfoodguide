@@ -11,6 +11,10 @@ Dish photographs shown inside menus come from the original app's menu data (`lib
 
 The interface palette mirrors the source app's tokens: deep maroon brand (`#822727`–`#571a1a`), amber star accent (`#f59e0b`), warm surfaces (`#faf8f5`), and WCAG-AA ink tones (`#1c1917`, `#57534e`, `#6b6560`).
 
+## 3D interface
+
+The interactive hero scene uses [Three.js](https://threejs.org/) and [React Three Fiber](https://docs.pmnd.rs/react-three-fiber), both under the MIT License. The cups, floating bites, lighting, and motion are procedural geometry; no additional branded 3D assets are used.
+
 ## Original Wikimedia attribution
 
 The following credits are retained from the repository's `public/logos/CREDITS.md`.
