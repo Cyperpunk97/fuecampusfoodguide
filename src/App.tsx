@@ -43,6 +43,12 @@ function useLocalState<T,>(key: string, initial: T): [T, Dispatch<SetStateAction
           const profile = parsed as Record<string, unknown>;
           return { name: typeof profile.name === 'string' ? profile.name : 'Campus foodie', faculty: typeof profile.faculty === 'string' ? profile.faculty : '' } as T;
         }
+        if (key === 'cs-star-home-preferences-v1') {
+          const preferences = parsed as Record<string, unknown>;
+          const budget = typeof preferences.budget === 'number' && [0, 1, 2, 3].includes(preferences.budget) ? preferences.budget : 0;
+          const interests = Array.isArray(preferences.interests) ? preferences.interests.filter((item): item is string => typeof item === 'string') : [];
+          return { budget, interests } as T;
+        }
         return parsed as T;
       }
       return initial;
@@ -58,8 +64,8 @@ type HomePreferences = { budget: 0 | 1 | 2 | 3; interests: string[] };
 function WelcomeDialog({ facultyId, preferences, onComplete }: { facultyId: string; preferences: HomePreferences; onComplete: (faculty: string, preferences: HomePreferences) => void }) {
   const { t, lang } = useI18n();
   const [faculty, setFaculty] = useState(facultyId);
-  const [budget, setBudget] = useState<HomePreferences['budget']>(preferences.budget);
-  const [interests, setInterests] = useState<string[]>(preferences.interests);
+  const [budget, setBudget] = useState<HomePreferences['budget']>([0, 1, 2, 3].includes(preferences.budget) ? preferences.budget : 0);
+  const [interests, setInterests] = useState<string[]>(Array.isArray(preferences.interests) ? preferences.interests : []);
   const options = [
     { id: 'coffee', icon: Coffee, label: t('Coffee & study breaks', 'قهوة وبريك مذاكرة') },
     { id: 'quick', icon: UtensilsCrossed, label: t('Quick meals', 'وجبات سريعة') },
