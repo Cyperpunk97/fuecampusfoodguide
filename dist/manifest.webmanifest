@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "CS Family Star — Campus Food Guide",
-  "short_name": "CS Family",
+  "name": "FUE Food Guide — Campus eats, clearly",
+  "short_name": "FUE Food Guide",
   "description": "Discover 53 food spots around Future University in Egypt with brand logos, menus, dish search, reviews, and faculty-based walking directions.",
   "start_url": "/",
   "scope": "/",

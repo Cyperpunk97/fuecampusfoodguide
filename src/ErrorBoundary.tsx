@@ -8,7 +8,7 @@ export default class ErrorBoundary extends Component<{ children: ReactNode }, St
   static getDerivedStateFromError(): State { return { failed: true }; }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error('CS Family screen error', error, info.componentStack);
+    console.error('FUE Food Guide screen error', error, info.componentStack);
   }
 
   render() {
