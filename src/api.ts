@@ -8,7 +8,7 @@ export function validateBackend(raw: string) {
   return url.toString().replace(/\/+$/, '').replace(/\/api$/, '');
 }
 async function request(base: string, path: string, body?: unknown, timeout = 15000): Promise<unknown> {
-  if (!base) throw new Error('Connect your original backend in Settings to use community features.');
+  if (!base) throw new Error('Connect a community backend in Settings to use shared features.');
   const controller = new AbortController(); const timer = window.setTimeout(() => controller.abort(), timeout);
   try {
     const response = await fetch(`${validateBackend(base)}${path}`, { method: body === undefined ? 'GET' : 'POST', signal: controller.signal,

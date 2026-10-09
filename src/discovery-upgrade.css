@@ -256,3 +256,7 @@ html[data-theme="dark"] .trust-warning { color: #ead4a1; background: #352b19; }
   .trust-panel { padding: 15px; }
   .trust-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 }
+
+/* Community connection is opt-in: make the deployment shortcut clear without masking setup requirements. */
+.settings-suggested-backend { margin: 12px 0 2px; }
+.community-doc-link { margin: 9px 1px 0; }
